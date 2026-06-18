@@ -1,6 +1,11 @@
 # Antigravity CLI Discord Rich Presence 🚀
 
-A lightweight, dependency-free Node.js integration to display your active **Google Antigravity CLI** coding status as Discord Rich Presence. Shows when you are thinking, running terminal commands, editing files, or idling in real-time.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D16.0.0-green.svg)](https://nodejs.org/)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](#)
+[![Dependencies](https://img.shields.io/badge/dependencies-zero-success.svg)](#)
+
+A lightweight, dependency-free Node.js integration to display your active **Google Antigravity CLI** coding status as Discord Rich Presence. It updates your status in real-time, showing when you are thinking, running terminal commands, editing files, or idling.
 
 ```text
        Playing Antigravity CLI
@@ -12,8 +17,9 @@ A lightweight, dependency-free Node.js integration to display your active **Goog
 ---
 
 ## ✨ Features
-- **Zero Dependencies**: Connects directly to Discord's Named Pipes (Windows) or Unix Sockets (macOS/Linux) using Node's native `net` module. Extremely lightweight.
+- **Zero Dependencies**: Connects directly to Discord's Local Named Pipes (Windows) or Unix Sockets (macOS/Linux) using Node's native `net` module. Extremely lightweight.
 - **Cross-Platform**: Automatically resolves paths for Windows named pipes and Unix domain sockets.
+- **Dynamic File Icon Resolution**: Displays file-specific icons dynamically using [Material Icon Theme](https://github.com/PKief/vscode-material-icon-theme) matching the file you are currently viewing or editing.
 - **Real-Time Hook Execution**: Intercepts TUI lifecycle events (`PreToolUse`, `PostToolUse`, `PreInvocation`, etc.) to update status instantly.
 - **Automatic Lifecycle Control**: Starts up and terminates automatically alongside the CLI as an Antigravity Sidecar process.
 
@@ -23,10 +29,10 @@ A lightweight, dependency-free Node.js integration to display your active **Goog
 
 To install this globally for all your Antigravity workspaces:
 
-### Option A: Automated Installation (Windows)
-Open PowerShell in the project directory and run the install script:
-```powershell
-powershell -ExecutionPolicy Bypass -File .\install.ps1
+### Option A: Automated Installation (Windows) - **Recommended**
+Simply double-click the **[install.bat](file:///E:/NAN/Github/agy-discord-presence/install.bat)** script (or run it from Cmd/PowerShell) in the root of the project directory:
+```cmd
+install.bat
 ```
 This script will automatically:
 1. Copy the sidecar files to your global `~/.gemini/config/sidecars/discord_presence/` directory.
@@ -38,9 +44,9 @@ This script will automatically:
 Copy this repository's folder contents to your global Antigravity config directory under the `sidecars` namespace:
 
 - **Path**: `~/.gemini/config/sidecars/discord_presence/`
-  *(e.g. `C:\Users\<YourUsername>\.gemini\config\sidecars\discord_presence\` on Windows)*
+  *(e.g., `C:\Users\<YourUsername>\.gemini\config\sidecars\discord_presence\` on Windows or `~/.gemini/config/sidecars/discord_presence/` on macOS/Linux)*
 
-Make sure the directory structure looks like this:
+Ensure the directory structure looks like this:
 ```text
 ~/.gemini/config/sidecars/discord_presence/
 ├── sidecar.json
@@ -52,11 +58,42 @@ Make sure the directory structure looks like this:
 #### 2. Configure the Global Event Hooks
 Copy the hook definitions from `hooks.json` in this repository to your global `hooks.json` file located at `~/.gemini/config/hooks.json`.
 
-*(If the file does not exist, create it. If it does exist, append the `"discord-presence"` entry to the root object).*
+*(If the file does not exist, create it. If it does exist, merge the `"discord-presence"` entry into the root object).*
 
 ---
 
-## 🎨 Customizing Discord Branding (Client ID & Icons)
+## 🔍 How It Works (Architecture)
+
+The integration consists of two main components:
+1. **The Hook Trigger (`hook-trigger.js`)**: Runs quickly on every lifecycle event of the Antigravity TUI. It serializes the event details, active files, and tool invocation arguments to `discord_state.json`, then triggers the daemon if it's not already running.
+2. **The Sidecar Daemon (`discord-presence.js`)**: A persistent background process that maintains the IPC connection with Discord, throttles status updates, checks if the main TUI process is still alive, and shuts itself down cleanly when the TUI exits.
+
+```mermaid
+graph TD
+    A[Antigravity CLI Event] -->|PreToolUse / PreInvocation| B[hook-trigger.js]
+    B -->|Writes state| C[(discord_state.json)]
+    B -->|Ensures running| D[discord-presence.js]
+    D -->|Reads state| C
+    D -->|IPC Pipe/Socket| E[Discord Client]
+```
+
+---
+
+## 🎨 Dynamic File Icons
+
+When editing or viewing files, the Discord status dynamically updates its large icon based on the file type. We map a wide range of extensions and special filenames to Material Icon Theme graphics:
+
+| Category | Supported Languages / Types |
+| :--- | :--- |
+| **Web / JS** | JS, MJS, JSX, TS, TSX, Vue, Svelte, HTML, CSS, SCSS, Sass, Less |
+| **Languages** | Python (`.py`, `.ipynb`), C, C++, C#, Java, Kotlin, Scala, Go, Rust, Swift, Dart, PHP, Ruby, Perl |
+| **Scripts** | Shell (`.sh`, `.bash`), PowerShell (`.ps1`), Batch (`.bat`, `.cmd`) |
+| **Data & Config**| JSON, YAML, XML, TOML, INI, SQL, DB |
+| **Special Files** | `Dockerfile`, `package.json`, `tsconfig.json`, `webpack.config.js`, `vite.config.js`, `next.config.js`, `.gitignore`, `hooks.json`, `sidecar.json`, `README.md` |
+
+---
+
+## ⚙️ Customizing Discord Branding (Client ID & Icons)
 
 By default, the integration uses a generic Application ID displaying "Antigravity CLI". To show your own customized branding, name, or icons:
 
@@ -77,7 +114,10 @@ By default, the integration uses a generic Application ID displaying "Antigravit
 ---
 
 ## 🔧 Disabling the Integration
-To temporarily turn off the Discord updates, you can rename or remove the `~/.gemini/config/hooks.json` file, or type `/hooks` inside the Antigravity TUI to view and manage active hooks.
+
+To temporarily turn off the Discord updates, you can:
+- Rename or remove the `~/.gemini/config/hooks.json` file.
+- Type `/hooks` inside the Antigravity TUI to view, enable, or disable active hooks dynamically.
 
 ## 📄 License
-This project is open-source and licensed under the MIT License.
+This project is open-source and licensed under the [MIT License](https://opensource.org/licenses/MIT).
