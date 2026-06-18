@@ -1,0 +1,19 @@
+{
+  "name": "antigravity-discord-presence",
+  "version": "1.0.0",
+  "description": "Discord Rich Presence integration for Antigravity CLI",
+  "main": "src/discord-presence.js",
+  "scripts": {
+    "start": "node src/discord-presence.js",
+    "hook": "node src/hook-trigger.js"
+  },
+  "keywords": [
+    "antigravity",
+    "discord",
+    "rich-presence",
+    "sidecar",
+    "hook"
+  ],
+  "author": "",
+  "license": "MIT"
+}

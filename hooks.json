@@ -1,0 +1,64 @@
+{
+  "discord-presence": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js PreToolUse",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js PostToolUse",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreInvocation": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js PreInvocation",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostInvocation": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js PostInvocation",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js Stop",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
