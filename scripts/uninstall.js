@@ -38,18 +38,8 @@ try {
   // Fallback: Kill any node process running discord-presence.js
   try {
     if (process.platform === 'win32') {
-      const output = execSync('wmic process where "name=\'node.exe\'" get processid,commandline', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
-      const lines = output.split('\n');
-      for (const line of lines) {
-        if (line.includes('discord-presence.js')) {
-          const match = line.match(/(\d+)\s*$/);
-          if (match) {
-            const pid = parseInt(match[1], 10);
-            process.kill(pid, 'SIGTERM');
-            console.log(`Stopped process ID (fallback): ${pid}`);
-          }
-        }
-      }
+      execSync('powershell -NoProfile -Command "Get-CimInstance Win32_Process -Filter \\"CommandLine like \'%discord-presence.js%\'\\" | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }"', { stdio: 'ignore' });
+      console.log('Stopped any running daemon processes (fallback).');
     } else {
       const output = execSync('ps -ef | grep discord-presence.js | grep -v grep', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
       const lines = output.split('\n');
