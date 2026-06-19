@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const { spawn } = require('child_process');
+const { spawn, execSync } = require('child_process');
 
 function ensureDaemonIsRunning() {
   const lockFile = path.join(os.homedir(), '.gemini', 'antigravity-cli', 'scratch', 'discord_presence.lock');
@@ -188,8 +188,6 @@ function main() {
       }
     }
   } catch (err) {}
-
-  const { execSync } = require('child_process');
 
   function getProcessInfo(pid) {
     try {

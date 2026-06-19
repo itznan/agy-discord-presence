@@ -37,15 +37,25 @@ try {
     throw new Error('Local hooks.json file not found in script directory!');
   }
 
-  let hooksContent = fs.readFileSync(localHooksPath, 'utf8');
+  const hookTriggerPath = path.join(destDir, 'dist', 'hook-trigger.js');
+  const templateHooksObj = JSON.parse(fs.readFileSync(localHooksPath, 'utf8'));
 
-  // Replace path separators and user profile home directory path
-  const userHome = os.homedir();
-  const escapedHome = userHome.replace(/\\/g, '\\\\');
-  hooksContent = hooksContent.split('C:\\\\Users\\\\lotio').join(escapedHome);
-  hooksContent = hooksContent.split('C:/Users/lotio').join(userHome.replace(/\\/g, '/'));
-
-  const templateHooksObj = JSON.parse(hooksContent);
+  // Update commands in hooks dynamically and cross-platform
+  const events = ['PreToolUse', 'PostToolUse', 'PreInvocation', 'PostInvocation', 'Stop'];
+  for (const eventName of events) {
+    if (templateHooksObj['discord-presence'] && templateHooksObj['discord-presence'][eventName]) {
+      const matchers = templateHooksObj['discord-presence'][eventName];
+      for (const matcher of matchers) {
+        if (matcher.hooks) {
+          for (const hook of matcher.hooks) {
+            if (hook.type === 'command') {
+              hook.command = `node "${hookTriggerPath}" ${eventName}`;
+            }
+          }
+        }
+      }
+    }
+  }
 
   // Update or Create Global hooks.json
   let globalHooksObj = {};

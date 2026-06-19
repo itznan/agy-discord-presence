@@ -24,6 +24,14 @@
     "sidecar",
     "hook"
   ],
-  "author": "",
-  "license": "MIT"
+  "author": "itznan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itznan/agy-discord-presence.git"
+  },
+  "bugs": {
+    "url": "https://github.com/itznan/agy-discord-presence/issues"
+  },
+  "homepage": "https://github.com/itznan/agy-discord-presence#readme"
 }
