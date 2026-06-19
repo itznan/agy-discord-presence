@@ -60,6 +60,12 @@ graph TD
     B -->|Ensures running| D[discord-presence.js]
     D -->|Reads state| C
     D -->|IPC Pipe/Socket| E[Discord Client]
+
+    style A fill:#4f46e5,stroke:#312e81,stroke-width:2px,color:#fff
+    style B fill:#10b981,stroke:#065f46,stroke-width:2px,color:#fff
+    style C fill:#f59e0b,stroke:#92400e,stroke-width:2px,color:#fff
+    style D fill:#3b82f6,stroke:#1e40af,stroke-width:2px,color:#fff
+    style E fill:#5865F2,stroke:#404EED,stroke-width:2px,color:#fff
 ```
 
 ---
