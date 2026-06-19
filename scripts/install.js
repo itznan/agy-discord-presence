@@ -11,6 +11,22 @@ const geminiConfigDir = path.join(os.homedir(), '.gemini', 'config');
 const destDir = path.join(geminiConfigDir, 'sidecars', 'discord_presence');
 const globalHooksPath = path.join(geminiConfigDir, 'hooks.json');
 
+function getShortPath(filePath) {
+  if (process.platform !== 'win32') return filePath;
+  try {
+    const { execSync } = require('child_process');
+    const escapedPath = filePath.replace(/'/g, "''");
+    const cmd = `powershell -NoProfile -Command "(New-Object -ComObject Scripting.FileSystemObject).GetFile('${escapedPath}').ShortPath"`;
+    const shortPath = execSync(cmd, { encoding: 'utf8' }).trim();
+    if (shortPath) {
+      return shortPath;
+    }
+  } catch (err) {
+    // Ignore and fallback
+  }
+  return filePath;
+}
+
 console.log(`Target Configuration Directory: ${destDir}`);
 
 try {
@@ -49,7 +65,15 @@ try {
         if (matcher.hooks) {
           for (const hook of matcher.hooks) {
             if (hook.type === 'command') {
-              hook.command = `node "${hookTriggerPath}" ${eventName}`;
+              let targetPath = hookTriggerPath;
+              if (process.platform === 'win32') {
+                targetPath = getShortPath(hookTriggerPath);
+              }
+              if (targetPath.includes(' ')) {
+                hook.command = `node "${targetPath}" ${eventName}`;
+              } else {
+                hook.command = `node ${targetPath} ${eventName}`;
+              }
             }
           }
         }
