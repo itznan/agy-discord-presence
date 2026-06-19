@@ -1,0 +1,7 @@
+# Ignore source files in published npm package to keep it light
+src/
+temp-test/
+.git/
+.gitignore
+.gitattributes
+*.tgz
