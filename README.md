@@ -30,11 +30,11 @@ A lightweight, dependency-free Node.js integration to display your active **Goog
 To install this globally for all your Antigravity workspaces:
 
 ### Option A: Direct Installation from GitHub (Cross-Platform) - **Recommended**
-You don't even need to clone this repository! Simply install it globally from GitHub directly:
+You don't even need to clone this repository! Simply install it globally from the GitHub archive tarball URL:
 ```bash
-npm install -g itznan/agy-discord-presence
+npm install -g https://github.com/itznan/agy-discord-presence/archive/refs/heads/main.tar.gz
 ```
-NPM will automatically fetch the code and run the postinstall configuration script to set up everything automatically.
+NPM will automatically download and unpack the release directly, triggering the automated configuration and installation of all sidecar and hook files.
 
 ### Option B: Local Clone Installation
 If you have cloned this repository locally, you can run:
@@ -112,11 +112,12 @@ By default, the integration uses a generic Application ID displaying "Antigravit
 ## 🔧 Uninstallation & Disabling
 
 ### Option A: Global Uninstallation (Cross-Platform) - **Recommended**
-If you installed it globally via GitHub, simply uninstall it using:
+If you installed it globally via GitHub, simply execute the global cleanup command and then uninstall:
 ```bash
+discord-presence-uninstall
 npm uninstall -g antigravity-discord-presence
 ```
-NPM will automatically trigger the preuninstall hooks to shut down active daemon processes and cleanly remove all sidecar configuration and files.
+The first command cleanly stops any running background processes and cleans up your configuration directory. The second command removes the package from your global node modules.
 
 ### Option B: Local Clone Uninstallation
 If you are using a cloned repository, you can run:
