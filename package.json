@@ -1,6 +1,6 @@
 {
   "name": "@itznan/antigravity-discord-presence",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Discord Rich Presence integration for Antigravity CLI",
   "main": "src/discord-presence.js",
   "bin": {

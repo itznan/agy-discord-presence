@@ -258,18 +258,18 @@ function main() {
     }
   }
 
-  let currentIconUrl = cachedIconUrl || null;
-  let currentLargeText = cachedLargeText || 'Antigravity CLI';
+  let currentIconUrl = null;
+  let currentLargeText = 'Antigravity CLI';
 
   if (activeFile) {
     const iconName = getIconForFile(activeFile);
     if (iconName) {
       currentIconUrl = `https://wsrv.nl/?url=raw.githubusercontent.com/PKief/vscode-material-icon-theme/master/icons/${iconName}.svg&output=png&w=512&h=512`;
       currentLargeText = `Editing ${path.basename(activeFile)}`;
-    } else {
-      currentIconUrl = null;
-      currentLargeText = 'Antigravity CLI';
     }
+  } else if (event === 'PreToolUse') {
+    currentIconUrl = cachedIconUrl;
+    currentLargeText = cachedLargeText;
   }
 
   const stateData = {

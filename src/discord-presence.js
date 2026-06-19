@@ -248,7 +248,7 @@ async function run() {
           start: startTime
         },
         assets: {
-          large_image: currentState.iconUrl || 'antigravity',
+          large_image: currentState.iconUrl || 'https://raw.githubusercontent.com/itznan/agy-discord-presence/main/icon.png',
           large_text: currentState.largeText || 'Antigravity CLI',
           small_image: currentState.status === 'Idle' ? 'idle' : 'active',
           small_text: currentState.status || 'Active'
