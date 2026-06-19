@@ -1,6 +1,6 @@
 {
-  "name": "antigravity-discord-presence",
-  "version": "1.0.0",
+  "name": "@itznan/antigravity-discord-presence",
+  "version": "1.0.1",
   "description": "Discord Rich Presence integration for Antigravity CLI",
   "main": "src/discord-presence.js",
   "bin": {
@@ -33,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/itznan/agy-discord-presence/issues"
   },
-  "homepage": "https://github.com/itznan/agy-discord-presence#readme"
+  "homepage": "https://github.com/itznan/agy-discord-presence#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }
