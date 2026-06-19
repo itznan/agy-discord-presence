@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node src/discord-presence.js",
     "hook": "node src/hook-trigger.js",
-    "build": "npx esbuild src/discord-presence.js --bundle --platform=node --minify --outfile=dist/discord-presence.js && npx esbuild src/hook-trigger.js --bundle --platform=node --minify --outfile=dist/hook-trigger.js"
+    "build": "npx esbuild src/discord-presence.js --bundle --platform=node --minify --outfile=dist/discord-presence.js && npx esbuild src/hook-trigger.js --bundle --platform=node --minify --outfile=dist/hook-trigger.js",
+    "postinstall": "node scripts/install.js",
+    "uninstall": "node scripts/uninstall.js",
+    "preuninstall": "node scripts/uninstall.js"
   },
   "devDependencies": {
     "esbuild": "^0.20.0"

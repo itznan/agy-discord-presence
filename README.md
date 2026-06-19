@@ -29,36 +29,21 @@ A lightweight, dependency-free Node.js integration to display your active **Goog
 
 To install this globally for all your Antigravity workspaces:
 
-### Option A: Automated Installation (Windows) - **Recommended**
-Simply double-click the **[install.bat](file:///E:/NAN/Github/agy-discord-presence/install.bat)** script (or run it from Cmd/PowerShell) in the root of the project directory:
-```cmd
-install.bat
+### Option A: Automated Installation (Cross-Platform) - **Recommended**
+Simply run `npm install` inside the project folder:
+```bash
+npm install
 ```
-This script will automatically:
-1. Copy the sidecar files to your global `~/.gemini/config/sidecars/discord_presence/` directory.
-2. Update your global `~/.gemini/config/hooks.json` configuration, merging the new event hooks dynamically with your current user home path.
+This will automatically trigger the postinstall script, which:
+1. Copies the minified sidecar files and configurations to your global `~/.gemini/config/sidecars/discord_presence/` directory.
+2. Updates your global `~/.gemini/config/hooks.json` configuration, merging the new event hooks dynamically with your current user home path.
 
 ### Option B: Manual Installation (Cross-Platform)
-
-#### 1. Place the files in your global configurations
-Copy this repository's folder contents to your global Antigravity config directory under the `sidecars` namespace:
-
-- **Path**: `~/.gemini/config/sidecars/discord_presence/`
-  *(e.g., `C:\Users\<YourUsername>\.gemini\config\sidecars\discord_presence\` on Windows or `~/.gemini/config/sidecars/discord_presence/` on macOS/Linux)*
-
-Ensure the directory structure looks like this:
-```text
-~/.gemini/config/sidecars/discord_presence/
-├── sidecar.json
-└── dist/
-    ├── discord-presence.js
-    └── hook-trigger.js
-```
-
-#### 2. Configure the Global Event Hooks
-Copy the hook definitions from `hooks.json` in this repository to your global `hooks.json` file located at `~/.gemini/config/hooks.json`.
-
-*(If the file does not exist, create it. If it does exist, merge the `"discord-presence"` entry into the root object).*
+If you prefer not to use `npm install`, you can manually:
+1. Copy `sidecar.json` and the `dist/` directory to your global Antigravity config directory under the `sidecars` namespace:
+   - **Path**: `~/.gemini/config/sidecars/discord_presence/`
+     *(e.g., `C:\Users\<YourUsername>\.gemini\config\sidecars\discord_presence\` on Windows or `~/.gemini/config/sidecars/discord_presence/` on macOS/Linux)*
+2. Copy the hook definitions from `hooks.json` in this repository into your global `hooks.json` file located at `~/.gemini/config/hooks.json` (under the `"discord-presence"` key).
 
 ---
 
@@ -115,16 +100,18 @@ By default, the integration uses a generic Application ID displaying "Antigravit
 
 ## 🔧 Uninstallation & Disabling
 
-### Option A: Automated Uninstallation (Windows)
-Simply double-click the **[uninstall.bat](file:///E:/NAN/Github/agy-discord-presence/uninstall.bat)** script in the root of the project directory (or run it from Cmd/PowerShell):
-```cmd
-uninstall.bat
+### Option A: Automated Uninstallation (Cross-Platform) - **Recommended**
+Simply run `npm run uninstall` inside the project folder:
+```bash
+npm run uninstall
 ```
 This script will automatically:
-1. Delete the sidecar files from your global `~/.gemini/config/sidecars/discord_presence/` directory.
-2. Clean up your global `~/.gemini/config/hooks.json` file by removing the `"discord-presence"` hooks.
+1. Stop any running active Discord Presence background processes.
+2. Delete the sidecar files from your global `~/.gemini/config/sidecars/discord_presence/` directory.
+3. Clean up your global `~/.gemini/config/hooks.json` file by removing the `"discord-presence"` hooks.
 
 ### Option B: Manual Uninstallation (Cross-Platform)
+If you prefer not to use `npm run uninstall`, you can manually:
 1. Delete the sidecar directory:
    - **Path**: `~/.gemini/config/sidecars/discord_presence/`
 2. Remove the `"discord-presence"` block from your global `~/.gemini/config/hooks.json` file.
