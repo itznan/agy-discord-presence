@@ -31,8 +31,15 @@ To install this globally for all your Antigravity workspaces:
 
 ### Option A: Direct Installation from GitHub (Cross-Platform) - **Recommended**
 You don't even need to clone this repository! Simply install it globally from the GitHub archive tarball URL:
+
+On **macOS/Linux**:
 ```bash
 npm install -g https://github.com/itznan/agy-discord-presence/archive/refs/heads/main.tar.gz
+```
+
+On **Windows (PowerShell)**:
+```powershell
+npm.cmd install -g https://github.com/itznan/agy-discord-presence/archive/refs/heads/main.tar.gz
 ```
 NPM will automatically download and unpack the release directly, triggering the automated configuration and installation of all sidecar and hook files.
 
@@ -112,10 +119,18 @@ By default, the integration uses a generic Application ID displaying "Antigravit
 ## 🔧 Uninstallation & Disabling
 
 ### Option A: Global Uninstallation (Cross-Platform) - **Recommended**
-If you installed it globally via GitHub, simply execute the global cleanup command and then uninstall:
+If you installed it globally via GitHub, execute the global cleanup command and then uninstall:
+
+On **macOS/Linux**:
 ```bash
 discord-presence-uninstall
-npm uninstall -g antigravity-discord-presence
+npm uninstall -g agy-discord-presence
+```
+
+On **Windows (PowerShell)**:
+```powershell
+discord-presence-uninstall.cmd
+npm.cmd uninstall -g agy-discord-presence
 ```
 The first command cleanly stops any running background processes and cleans up your configuration directory. The second command removes the package from your global node modules.
 
