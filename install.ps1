@@ -24,7 +24,7 @@ if (-not (Test-Path $DestDir)) {
 # 3. Copy files to destination
 Write-Host "Copying sidecar files..." -ForegroundColor Gray
 Copy-Item -Path (Join-Path $SourceDir "sidecar.json") -Destination $DestDir -Force
-Copy-Item -Path (Join-Path $SourceDir "src") -Destination $DestDir -Recurse -Force
+Copy-Item -Path (Join-Path $SourceDir "dist") -Destination $DestDir -Recurse -Force
 
 # 4. Prepare Hook Configuration
 $LocalHooksPath = Join-Path $SourceDir "hooks.json"
@@ -64,9 +64,10 @@ if (Test-Path $GlobalHooksPath) {
     $GlobalHooksObj = $TemplateHooksObj
 }
 
-# Save updated global hooks.json
+# Save updated global hooks.json (UTF-8 without BOM)
 $JsonSettings = $GlobalHooksObj | ConvertTo-Json -Depth 100
-[System.IO.File]::WriteAllText($GlobalHooksPath, $JsonSettings, [System.Text.Encoding]::UTF8)
+$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+[System.IO.File]::WriteAllText($GlobalHooksPath, $JsonSettings, $Utf8NoBom)
 
 Write-Host ""
 Write-Host "✨ Installation complete! ✨" -ForegroundColor Green

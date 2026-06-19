@@ -1,6 +1,6 @@
 {
   "command": "node",
-  "args": ["src/discord-presence.js"],
+  "args": ["dist/discord-presence.js"],
   "restart_policy": "always",
   "description": "Discord Rich Presence Integration for Antigravity CLI (Node.js)"
 }

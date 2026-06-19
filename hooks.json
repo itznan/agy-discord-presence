@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js PreToolUse",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\dist\\hook-trigger.js PreToolUse",
             "timeout": 5
           }
         ]
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js PostToolUse",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\dist\\hook-trigger.js PostToolUse",
             "timeout": 5
           }
         ]
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js PreInvocation",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\dist\\hook-trigger.js PreInvocation",
             "timeout": 5
           }
         ]
@@ -42,7 +42,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js PostInvocation",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\dist\\hook-trigger.js PostInvocation",
             "timeout": 5
           }
         ]
@@ -54,7 +54,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\src\\hook-trigger.js Stop",
+            "command": "node C:\\Users\\lotio\\.gemini\\config\\sidecars\\discord_presence\\dist\\hook-trigger.js Stop",
             "timeout": 5
           }
         ]

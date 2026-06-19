@@ -50,9 +50,9 @@ Ensure the directory structure looks like this:
 ```text
 ~/.gemini/config/sidecars/discord_presence/
 ├── sidecar.json
-├── src/
-│   ├── discord-presence.js
-│   └── hook-trigger.js
+└── dist/
+    ├── discord-presence.js
+    └── hook-trigger.js
 ```
 
 #### 2. Configure the Global Event Hooks
@@ -113,11 +113,37 @@ By default, the integration uses a generic Application ID displaying "Antigravit
 
 ---
 
-## 🔧 Disabling the Integration
+## 🔧 Uninstallation & Disabling
 
-To temporarily turn off the Discord updates, you can:
-- Rename or remove the `~/.gemini/config/hooks.json` file.
+### Option A: Automated Uninstallation (Windows)
+Simply double-click the **[uninstall.bat](file:///E:/NAN/Github/agy-discord-presence/uninstall.bat)** script in the root of the project directory (or run it from Cmd/PowerShell):
+```cmd
+uninstall.bat
+```
+This script will automatically:
+1. Delete the sidecar files from your global `~/.gemini/config/sidecars/discord_presence/` directory.
+2. Clean up your global `~/.gemini/config/hooks.json` file by removing the `"discord-presence"` hooks.
+
+### Option B: Manual Uninstallation (Cross-Platform)
+1. Delete the sidecar directory:
+   - **Path**: `~/.gemini/config/sidecars/discord_presence/`
+2. Remove the `"discord-presence"` block from your global `~/.gemini/config/hooks.json` file.
+
+### Temporarily Disabling
+To temporarily turn off the Discord updates without uninstalling:
 - Type `/hooks` inside the Antigravity TUI to view, enable, or disable active hooks dynamically.
+- Or temporarily rename or remove the `~/.gemini/config/hooks.json` file.
+
+## 🛠️ Development & Bundling
+
+If you make modifications to the source code under the `src/` directory, you need to rebuild the minified files under the `dist/` directory before installing.
+
+To build/minify the files:
+```bash
+npm run build
+```
+This uses `esbuild` to compile all source JS files and bundle them into compact, single-file scripts in `dist/`.
 
 ## 📄 License
 This project is open-source and licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
