@@ -29,16 +29,21 @@ A lightweight, dependency-free Node.js integration to display your active **Goog
 
 To install this globally for all your Antigravity workspaces:
 
-### Option A: Automated Installation (Cross-Platform) - **Recommended**
-Simply run `npm install` inside the project folder:
+### Option A: Direct Installation from GitHub (Cross-Platform) - **Recommended**
+You don't even need to clone this repository! Simply install it globally from GitHub directly:
+```bash
+npm install -g itznan/agy-discord-presence
+```
+NPM will automatically fetch the code and run the postinstall configuration script to set up everything automatically.
+
+### Option B: Local Clone Installation
+If you have cloned this repository locally, you can run:
 ```bash
 npm install
 ```
-This will automatically trigger the postinstall script, which:
-1. Copies the minified sidecar files and configurations to your global `~/.gemini/config/sidecars/discord_presence/` directory.
-2. Updates your global `~/.gemini/config/hooks.json` configuration, merging the new event hooks dynamically with your current user home path.
+This triggers the postinstall configuration script locally and copies the sidecar files.
 
-### Option B: Manual Installation (Cross-Platform)
+### Option C: Manual Installation (Cross-Platform)
 If you prefer not to use `npm install`, you can manually:
 1. Copy `sidecar.json` and the `dist/` directory to your global Antigravity config directory under the `sidecars` namespace:
    - **Path**: `~/.gemini/config/sidecars/discord_presence/`
@@ -106,18 +111,21 @@ By default, the integration uses a generic Application ID displaying "Antigravit
 
 ## 🔧 Uninstallation & Disabling
 
-### Option A: Automated Uninstallation (Cross-Platform) - **Recommended**
-Simply run `npm run uninstall` inside the project folder:
+### Option A: Global Uninstallation (Cross-Platform) - **Recommended**
+If you installed it globally via GitHub, simply uninstall it using:
+```bash
+npm uninstall -g antigravity-discord-presence
+```
+NPM will automatically trigger the preuninstall hooks to shut down active daemon processes and cleanly remove all sidecar configuration and files.
+
+### Option B: Local Clone Uninstallation
+If you are using a cloned repository, you can run:
 ```bash
 npm run uninstall
 ```
-This script will automatically:
-1. Stop any running active Discord Presence background processes.
-2. Delete the sidecar files from your global `~/.gemini/config/sidecars/discord_presence/` directory.
-3. Clean up your global `~/.gemini/config/hooks.json` file by removing the `"discord-presence"` hooks.
 
-### Option B: Manual Uninstallation (Cross-Platform)
-If you prefer not to use `npm run uninstall`, you can manually:
+### Option C: Manual Uninstallation (Cross-Platform)
+If you prefer manual cleanup, you can:
 1. Delete the sidecar directory:
    - **Path**: `~/.gemini/config/sidecars/discord_presence/`
 2. Remove the `"discord-presence"` block from your global `~/.gemini/config/hooks.json` file.
